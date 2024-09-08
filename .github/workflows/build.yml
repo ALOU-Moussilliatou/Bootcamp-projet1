@@ -34,7 +34,7 @@ jobs:
           script: |
             docker stop moussi-app-test:latest || true
             docker rm moussi-app-test:latest || true
-            docker login secrets.CONTAINER_REGISTRY_ENDPOINT -u nologin --password-stdin <<< "secrets.SCALEWAY_API_KEY"
+            docker login ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }} -u nologin --password-stdin <<< "${{secrets.SCALEWAY_API_KEY}}"
             docker pull  ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi-app-test:latest
             docker run -d --name moussi-app-test:latest -p 8008:8008 utilisateur/moussi-app-test:latest
 
