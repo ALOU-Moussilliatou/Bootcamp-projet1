@@ -32,8 +32,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker stop moussi-app-test:latest || true
-            docker rm moussi-app-test:latest || true
+            # docker stop moussi-app-test:latest || true
+            # docker rm moussi-app-test:latest || true
             docker login ${{secrets.CONTAINER_REGISTRY_ENDPOINT}} -u nologin --password-stdin <<< "${{secrets.SCALEWAY_API_KEY}}"
             docker pull ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi-app-testt
             docker run -d --name moussi-app-test:latest -p 8008:8008 utilisateur/moussi-app-test:latest
