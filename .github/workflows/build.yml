@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  construire-depot:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -21,9 +21,9 @@ jobs:
 
 
 
-  deploy:
+  recuperer-lancer:
     runs-on: ubuntu-latest
-    needs: build
+    needs: construire-depot
     steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.7
@@ -32,8 +32,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            docker login secrets.CONTAINER_REGISTRY_ENDPOINT -u nologin --password-stdin <<< "secrets.SCALEWAY_API_KEY"
             docker pull  ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi-app-test:latest
-            #docker stop moussi-app-test:latest || true
-            #docker rm moussi-app-test:latest || true
-            docker run -d --name moussi-app-test:latest -p 80:80 utilisateur/moussi-app-test:latest
+            docker stop moussi-app-test:latest || true
+            docker rm moussi-app-test:latest || true
+            docker run -d --name moussi-app-test:latest -p 8008:8008 utilisateur/moussi-app-test:latest
 
