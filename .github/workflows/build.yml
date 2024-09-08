@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull  ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi-app-test:latest
-            #docker stop nom-de-conteneur || true
-            #docker rm nom-de-conteneur || true
-            #docker run -d --name nom-de-conteneur -p 80:80 utilisateur/nom-de-ton-image
+            #docker stop moussi-app-test:latest || true
+            #docker rm moussi-app-test:latest || true
+            docker run -d --name moussi-app-test:latest -p 80:80 utilisateur/moussi-app-test:latest
 
