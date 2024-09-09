@@ -15,9 +15,9 @@ jobs:
         password: ${{ secrets.SCALEWAY_API_KEY }}
         registry: ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}
     - name: Build the Docker image
-      run: docker build . -t ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/test1
+      run: docker build . -t ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi
     - name: Push the Docker Image
-      run: docker push ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/test1
+      run: docker push ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi
 
 
 
@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker login ${{secrets.CONTAINER_REGISTRY_ENDPOINT}}/test1
-            docker pull ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/test1
-            docker run -d --name moussi-container -p 8008:8008 ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/test1
+            docker login ${{secrets.CONTAINER_REGISTRY_ENDPOINT}}/moussi
+            docker pull ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi
+            docker run -d --name moussi-container -p 8008:8008 ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/moussi
 
