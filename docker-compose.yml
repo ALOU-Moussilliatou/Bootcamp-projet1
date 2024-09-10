@@ -1,0 +1,22 @@
+#version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8005:8005"
+    restart: always
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "8006:8006"
+    depends_on: 
+      - backend 
+    restart: always
